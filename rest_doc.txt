@@ -1,0 +1,33 @@
+
+HOST/SERVER: 54....
+PROTOCOL: HTTP
+
+-----------------------------------------------
+// INITIATE user registration - creates empty user profile, generates random PIN and sends
+// that PIN over SMS to the user
+
+== REQUEST ==
+URL: /api/users/register
+METHOD: POST
+HEADER: "Content-Type: application/json"
+POST DATA: { "deviceId" : String, "phoneNumber" : String }  // Singapore phones: "+65..."
+
+== RESPONSE ==
+202 Accepted  - if request validation passed (phone number and device id are properly formed)
+400 Bad Request - if validation didn't pass
+Other regular status codes also used like
+500 - Internal Server Error
+------------------------------------------------
+// VERIFY user registration - verifies user supplied PIN and completes user registration
+
+== REQUEST ==
+URL: /api/users/verify
+METHOD: POST
+HEADER: "Content-Type: application/json"
+POST DATA: { "deviceId" : String, "pin" : Integer }
+
+== RESPONSE ==
+200 OK - if pin matched
+... otherwise
+-------------------------------------------------
+
